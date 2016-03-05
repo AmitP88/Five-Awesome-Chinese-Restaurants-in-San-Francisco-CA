@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset= "utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>Neighborhood Map</title>
+</head>
+<body>
+	<ul data-bind="foreach: PlaceList">
+	<script src="https://maps.googleapis.com/maps/api/js?&libraries=places"></script>
+	<input type="text" id="autocomplete">
+	<div id="map"></div>
+	<script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript" src="js/knockout-3.4.0.js"></script>
+</body>
+</html>
+
+
