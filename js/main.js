@@ -49,6 +49,23 @@ window.onload = function() {
   LoadMap();
 };
 
+  //Creates event listener to resize the map and remain centered in response to a window resize
+  google.maps.event.addDomListener(window, "resize", function() {
+      var center = map.getCenter();
+      google.maps.event.trigger(map, "resize");
+      map.setCenter(center);
+  });
+
+  google.maps.event.addListener(autocomplete, 'place_changed', function() {
+      infoWindow.close();
+      var place = autocomplete.getPlace();
+      if (place.geometry.viewport) {
+      map.fitBounds(place.geometry.viewport);
+      } else {
+      map.setCenter(place.geometry.location);
+      map.setZoom(17);
+      };
+
 //Object for creating new locations
 var Place = function (data) {
   this.title = ko.observable(data.title);
@@ -116,22 +133,7 @@ var ViewModel = function (){
                 });
             })(marker, data);
 
-    //Creates event listener to resize the map and remain centered in response to a window resize
-      google.maps.event.addDomListener(window, "resize", function() {
-        var center = map.getCenter();
-        google.maps.event.trigger(map, "resize");
-        map.setCenter(center);
-  });
 
-      google.maps.event.addListener(autocomplete, 'place_changed', function() {
-        infoWindow.close();
-        var place = autocomplete.getPlace();
-        if (place.geometry.viewport) {
-        map.fitBounds(place.geometry.viewport);
-        } else {
-        map.setCenter(place.geometry.location);
-        map.setZoom(17);
-        };
 
 
   //Adds Info windows to markers
