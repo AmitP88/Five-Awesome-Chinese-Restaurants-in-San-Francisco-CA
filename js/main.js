@@ -34,6 +34,21 @@ var markers = [
 }
 ];
 
+//Renders Map on screen
+
+function LoadMap() {
+  var mapOptions = {
+    center: new google.maps.LatLng(markers[0].lat, markers[0].lng),
+    zoom: 12,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+};
+  var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+  };
+
+window.onload = function() {
+  LoadMap();
+};
+
 //Object for creating new locations
 var Place = function (data) {
   this.title = ko.observable(data.title);
@@ -65,19 +80,7 @@ var ViewModel = function (){
     google.maps.event.trigger(clickedLocation.marker, 'click');
   };
 };
-//Renders Map on screen
-window.onload = function() {
-  LoadMap();
 
-function LoadMap() {
-  var mapOptions = {
-    center: new google.maps.LatLng(markers[0].lat, markers[0].lng),
-    zoom: 12,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-};
-  var map = new google.maps.Map(document.getElementById('map'), mapOptions);
-  };
-};
 
 //Renders Search Bar with Autocomplete feature on screen
   var acOptions = {
@@ -102,6 +105,7 @@ function LoadMap() {
       title: data.title,
       animation: google.maps.Animation.DROP
     });
+  };
 
     //Attach click event to the marker.
     (function (marker, data) {
@@ -111,7 +115,7 @@ function LoadMap() {
             infoWindow.open(map, marker);
                 });
             })(marker, data);
-        };
+
     //Creates event listener to resize the map and remain centered in response to a window resize
       google.maps.event.addDomListener(window, "resize", function() {
         var center = map.getCenter();
@@ -127,7 +131,8 @@ function LoadMap() {
         } else {
         map.setCenter(place.geometry.location);
         map.setZoom(17);
-        }
+        };
+
 
   //Adds Info windows to markers
   marker.setPosition(place.geometry.location);
