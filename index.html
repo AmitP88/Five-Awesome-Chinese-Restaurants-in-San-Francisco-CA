@@ -1,3 +1,5 @@
+<!--/////*VIEW*/////-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,13 +10,10 @@
 	<title>Neighborhood Map</title>
 </head>
 <body>
-	<script src="https://maps.googleapis.com/maps/api/js?&libraries=places"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjE8bUgRCXjZjSuQnvburEMvasHCaQo6M&libraries=places"></script>
 	<input type="text" id="autocomplete">
-	<div id="map"></div>
-	<ul data-bind="foreach: PlaceList">
+	<div id="map-canvas"></div>
 	<script type="text/javascript" src="js/main.js"></script>
 	<script type="text/javascript" src="js/knockout-3.4.0.js"></script>
 </body>
 </html>
-
-
