@@ -36,12 +36,16 @@ function initialize()
         marker.addListener('click', toggleBounce);
 //Bounce animation for when the user clicks on a marker
 function toggleBounce() {
-  if (marker.getAnimation() !== null) {
-    marker.setAnimation(null);
+  var self = this;
+  if (this.getAnimation() !== null) {
+    this.setAnimation(null);
   } else {
-    marker.setAnimation(google.maps.Animation.BOUNCE);
-  }
-}
+        this.setAnimation(google.maps.Animation.BOUNCE);
+        setTimeout(function() {
+            self.setAnimation(null)
+        }, 1000);
+    }
+};
 
 //An event listener to display an info window when the user clicks on a marker
         google.maps.event.addListener(marker, 'click', function() {
