@@ -58,3 +58,9 @@ function toggleBounce() {
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
+
+//function appViewModel() {
+//    var self = this;
+//};
+
+//ko.applyBindings(new appViewModel());
