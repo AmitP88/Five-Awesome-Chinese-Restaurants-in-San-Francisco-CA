@@ -2,12 +2,34 @@
 
 //Locations for the markers on the map
 var LocationData = [
-	[37.793945, -122.407079, "Capital Restaurant"],
-	[37.763695, -122.479830, "Shangri-Li Chinese Vegetarian"],
-	[37.738948, -122.479902, "Riverside Seafood Restaurant"],
-	[37.794188, -122.404117, "City View Restaurant"],
-	[37.781281, -122.463974, "Five Happiness"]
+	{
+    "title": "Capital Restaurant",
+    "lat": 37.793945,
+    "lng": -122.407079
+    },
+    {
+    "title": "Shangri-Li Chinese Vegetarian",
+    "lat": 37.763695,
+    "lng": -122.479830
+    },
+    {
+    "title": "Riverside Seafood Restaurant",
+    "lat": 37.738948,
+    "lng": -122.479902
+    },
+    {
+    "title": "City View Restaurant",
+    "lat": 37.794188,
+    "lng": -122.404117
+    },
+    {
+    "title": "Five Happiness",
+    "lat": 37.781281,
+    "lng": -122.463974
+    }
 ];
+
+
 
 /////*VIEWMODEL*/////
 
