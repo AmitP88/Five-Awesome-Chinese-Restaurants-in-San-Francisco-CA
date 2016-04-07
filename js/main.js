@@ -47,7 +47,7 @@ LocationData.forEach(function(location)) {
             map: map,
             draggable: true,
             animation: google.maps.Animation.DROP,
-            position: latlng,
+            position: "lat" + "," + "lng",
             title: p[0]
         });
         marker.addListener('click', toggleBounce);
