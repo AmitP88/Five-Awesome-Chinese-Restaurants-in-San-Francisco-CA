@@ -29,8 +29,6 @@ var LocationData = [
     }
 ];
 
-
-
 /////*VIEWMODEL*/////
 
 //Renders Map on screen
@@ -41,19 +39,16 @@ function initialize()
     var bounds = new google.maps.LatLngBounds();
     var infowindow = new google.maps.InfoWindow();
 
-//A for loop that uses LocationData to generate multiple markers on the map
-    for (var i in LocationData)
-    {
-        var p = LocationData[i];
-        var latlng = new google.maps.LatLng(p[0], p[1]);
-        bounds.extend(latlng);
+//A forEach fucntion that uses LocationData to generate multiple markers on the map
+LocationData.forEach(function(location)) {
+    new google.maps(location.title, location.lat, location.lng);
 
         var marker = new google.maps.Marker({
             map: map,
             draggable: true,
             animation: google.maps.Animation.DROP,
             position: latlng,
-            title: p[2]
+            title: p[0]
         });
         marker.addListener('click', toggleBounce);
 //Bounce animation for when the user clicks on a marker
@@ -75,7 +70,7 @@ function toggleBounce() {
             infowindow.open(map, this);
         });
     }
-
+}
     map.fitBounds(bounds);
 }
 
