@@ -1,7 +1,7 @@
 /////*MODEL*/////
 
 //Locations for the markers on the map
-var location = [
+var locations = [
 	{
     "title": "Capital Restaurant",
     "lat": 37.793945,
@@ -41,13 +41,13 @@ function initMap()
 
 //A forEach fucntion that uses LocationData to generate multiple markers on the map
 
-location.forEach(function(location) {
+locations.forEach(function(locations) {
     var marker = new google.maps.Marker({
             map: map,
             draggable: true,
             animation: google.maps.Animation.DROP,
-            position: location.lat + location.lng,
-            title: location.title
+            position: locations.lat + locations.lng,
+            title: locations.title
         });
     });
 };
