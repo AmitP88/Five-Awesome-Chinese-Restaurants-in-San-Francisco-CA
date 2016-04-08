@@ -3,29 +3,39 @@
 //Locations for the markers on the map
 var locations = [
 	{
-    "title": "Capital Restaurant",
-    "lat": 37.793945,
-    "lng": -122.407079
+    name: "Capital Restaurant",
+    position: {
+        lat: 37.793945,
+        lng: -122.407079
+        }
     },
     {
-    "title": "Shangri-Li Chinese Vegetarian",
-    "lat": 37.763695,
-    "lng": -122.479830
+    name: "Shangri-Li Chinese Vegetarian",
+    position: {
+        lat: 37.763695,
+        lng: -122.479830
+        }
     },
     {
-    "title": "Riverside Seafood Restaurant",
-    "lat": 37.738948,
-    "lng": -122.479902
+    name: "Riverside Seafood Restaurant",
+    position: {
+        lat: 37.738948,
+        lng: -122.479902
+        }
     },
     {
-    "title": "City View Restaurant",
-    "lat": 37.794188,
-    "lng": -122.404117
+    name: "City View Restaurant",
+    position: {
+        lat: 37.794188,
+        lng: -122.404117
+        }
     },
     {
-    "title": "Five Happiness",
-    "lat": 37.781281,
-    "lng": -122.463974
+    name: "Five Happiness",
+    position: {
+        lat: 37.781281,
+        lng: -122.463974
+        }
     }
 ];
 
@@ -46,35 +56,29 @@ locations.forEach(function(locations) {
             map: map,
             draggable: true,
             animation: google.maps.Animation.DROP,
-            position: locations.lat + locations.lng,
-            title: locations.title
+            position: locations.position,
+            title: locations.name
         });
     });
-};
-//        marker.addListener('click', toggleBounce);
+         marker.addListener('click', toggleBounce);
 //Bounce animation for when the user clicks on a marker
-//function toggleBounce() {
-//  var self = this;
-//  if (this.getAnimation() !== null) {
-//    this.setAnimation(null);
-//  } else {
-//        this.setAnimation(google.maps.Animation.BOUNCE);
-//        setTimeout(function() {
-//            self.setAnimation(null)
-//        }, 1000);
-//    }
-//};
-
-
+function toggleBounce() {
+  var self = this;
+  if (this.getAnimation() !== null) {
+    this.setAnimation(null);
+  } else {
+        this.setAnimation(google.maps.Animation.BOUNCE);
+        setTimeout(function() {
+            self.setAnimation(null)
+                    }, 1000);
+    }
+};
 
 //An event listener to display an info window when the user clicks on a marker
-//        google.maps.event.addListener(marker, 'click', function() {
-//            infowindow.setContent(this.title);
-//            infowindow.open(map, this);
-//        });
+        google.maps.event.addListener(marker, 'click', function() {
+            infowindow.setContent(this.title);
+            infowindow.open(map, this);
+        });
 
-//}
-//    map.fitBounds(bounds);
-//}
-
-google.maps.event.addDomListener(window, 'load', initMap);
+    map.fitBounds(bounds);
+};
