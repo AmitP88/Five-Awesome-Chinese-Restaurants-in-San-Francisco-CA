@@ -41,7 +41,7 @@ function initMap()
 
 //A forEach fucntion that uses LocationData to generate multiple markers on the map
 
-location.forEach(function(location)) {
+location.forEach(function(location) {
     var marker = new google.maps.Marker({
             map: map,
             draggable: true,
@@ -49,7 +49,7 @@ location.forEach(function(location)) {
             position: location.lat + location.lng,
             title: location.title
         });
-    };
+    });
 };
 //        marker.addListener('click', toggleBounce);
 //Bounce animation for when the user clicks on a marker
