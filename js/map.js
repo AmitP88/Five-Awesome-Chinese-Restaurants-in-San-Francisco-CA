@@ -57,11 +57,12 @@ locations.forEach(function(locations) {
             draggable: true,
             animation: google.maps.Animation.DROP,
             position: locations.position,
-            title: locations.name
+            title: locations.name,
         });
     location.markerData = marker;
+        marker.addListener('click', toggleBounce);
     });
-         marker.addListener('click', toggleBounce);
+
 //Bounce animation for when the user clicks on a marker
 function toggleBounce() {
   var self = this;
@@ -75,11 +76,10 @@ function toggleBounce() {
     }
 };
 
-//An event listener to display an info window when the user clicks on a marker
+   //An event listener to display an info window when the user clicks on a marker
         google.maps.event.addListener(marker, 'click', function() {
             infowindow.setContent(this.title);
             infowindow.open(map, this);
         });
-
     map.fitBounds(bounds);
 };
