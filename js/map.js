@@ -59,6 +59,7 @@ locations.forEach(function(locations) {
             position: locations.position,
             title: locations.name
         });
+    location.markerData = marker;
     });
          marker.addListener('click', toggleBounce);
 //Bounce animation for when the user clicks on a marker
