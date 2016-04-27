@@ -1,43 +1,42 @@
+/////*VIEWMODEL*/////
+
+/*Class to represent a row in the Places grid*/
+function Place (name, initialLocation) {
+    var self = this;
+    self.name = name;
+    self.location = ko.observable(initialLocation);
+
+
+
+};
+
 /////*MODEL*/////
 
-//Locations for the markers on the map
-var locations = [
-	{
-    name: "Capital Restaurant",
-    position: {
-        lat: 37.793945,
-        lng: -122.407079
-        }
-    },
-    {
-    name: "Shangri-Li Chinese Vegetarian",
-    position: {
-        lat: 37.763695,
-        lng: -122.479830
-        }
-    },
-    {
-    name: "Riverside Seafood Restaurant",
-    position: {
-        lat: 37.738948,
-        lng: -122.479902
-        }
-    },
-    {
-    name: "City View Restaurant",
-    position: {
-        lat: 37.794188,
-        lng: -122.404117
-        }
-    },
-    {
-    name: "Five Happiness",
-    position: {
-        lat: 37.781281,
-        lng: -122.463974
-        }
-    }
+/*Overall viewmodel for the listview with initial statements*/
+function MapViewModel() {
+    var self = this;
+
+/*Non-editable data*/
+self.locations = [
+	{ name: "Capital Restaurant", position: {lat: 37.793945, lng: -122.407079}},
+    { name: "Shangri-Li Chinese Vegetarian", position: {lat: 37.763695, lng: -122.479830}},
+    { name: "Riverside Seafood Restaurant", position: {lat: 37.738948, lng: -122.479902}},
+    { name: "City View Restaurant", position: {lat: 37.794188, lng: -122.404117}},
+    { name: "Five Happiness", position: {lat: 37.781281, lng: -122.463974}}
 ];
+
+/*Editable data*/
+self.places = ko.observableArray([
+    new Place("Capital Restaurant", self.locations[1]),
+    new Place("Shangri-Li Chinese Vegetarian", self.locations[1]),
+    new Place("Riverside Seafood Restaurant", self.locations[1]),
+    new Place("City View Restaurant", self.locations[1]),
+    new Place("Five Happiness", self.locations[1]),
+    ]);
+
+}
+
+ko.applyBindings(new MapViewModel());
 
 ////*MAP*////
 
