@@ -11,6 +11,16 @@
 	<title>Neighborhood Map</title>
 </head>
 <body>
+
+
+<h2>Places</h2>
+	<ul>
+		<li data-bind="text: name().locations"></li>
+		<li data-bind="text: position().position"></li>
+	</ul>
+
+
+
 	<div id="map"></div>
     <script type="text/javascript" src="js/map.js"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjE8bUgRCXjZjSuQnvburEMvasHCaQo6M&libraries=places&callback=initMap"></script>
