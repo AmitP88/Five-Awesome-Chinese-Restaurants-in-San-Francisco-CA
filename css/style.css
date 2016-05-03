@@ -6,26 +6,28 @@ html, body, #map {
 
 #autocomplete {
   position: absolute;
-  top: 40px;
+  top: 0px;
   width: 100%;
   height: 25px;
 }
 
 .list-view {
     position: absolute;
-    top: 65px;
+    top: 30px;
     z-index: 1;
-    background: rgba(23,50,78,.5);
-    color: white;
+    background-image: url('C:/Users/Amit/Desktop/P5/images/chinese-food.jpg');
+    color: red;
 }
 
 .list-view p {
-    font-size: 1.4em;
+    font-size: 1.0em;
     font-weight: bold;
+    font-style: italic;
+    font-family: "Times New Roman", Times, serif;
     margin: 10px 5px;
 }
 
 .list-view p:hover {
-    background: rgba(23,50,78,.7);
+    background: hsl(0, 100%, 95%);
     cursor: pointer;
 }
