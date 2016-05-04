@@ -15,7 +15,7 @@ html, body, #map {
     position: absolute;
     top: 30px;
     z-index: 1;
-    background-image: url('C:/Users/Amit/Desktop/P5/images/chinese-food.jpg');
+    background-image: url('../images/chinese-food.jpg');
     color: red;
 }
 
