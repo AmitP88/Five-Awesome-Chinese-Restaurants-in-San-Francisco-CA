@@ -10,31 +10,32 @@ var initialLocations = [
 //Variable for infowindow content
 var content = "(Insert Yelp! API info here)";
 
-//Declared map, marker, and infoWindow variables to be used later downstream
+//Declared map, marker, and infoWindow variables early to be used later downstream
 
 var map;
 
+var marker;
+
 var infoWindow;
 
-//Function that renders the map on screen using the Id "map" as a reference
+//Function that renders the map on screen using the Id "map" as a reference from index.html
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
     center: {lat: 37.7749, lng: -122.4194},
     zoom: 12,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    mapTypeControl: false
   });
 };
 
 /////*VIEWMODEL*/////
 function ViewModel() {
 
-  // tells the view model what to do when a change occurs
+  //Constructor function that holds the observable objects for Knockout.js binding
   function restaurantLocation(name, position) {
-
-  var marker;
-
-  this.name = ko.observable(value.name);
-  this.position = ko.observable(value.lat);
+    this.name = ko.observable(name);
+    this.position = ko.observable(lat);
+    this.position = ko.observable(lng);
   };
 
   var self = this;
@@ -45,7 +46,7 @@ function ViewModel() {
 
   //Adds new markers at each location in the initialLocations Array
   self.sortedLocations().forEach(function(location) {
-    marker = new google.maps.Marker({
+    var marker = new google.maps.Marker({
       position: location.position,
       map: map,
       title: location.name,
@@ -56,17 +57,17 @@ function ViewModel() {
     location.marker = marker;
 
   //Pushes each marker into the markers array
-    this.markers.push(marker);
+    self.markers.push(marker);
   });
 
   //Map info windows to each item in the markers array
   self.markers.map(function(info) {
-    infoWindow = new google.maps.InfoWindow({
+     infoWindow = new google.maps.InfoWindow({
       content: content
     });
     //Add click event to each marker to open info window
     info.addListener('click', function() {
-      infoWindow.open(map, this),
+      infoWindow.open(map, this)
         info.setAnimation(google.maps.Animation.BOUNCE) //Markers will bounce when clicked
       setTimeout(function() {
         info.setAnimation(null)
