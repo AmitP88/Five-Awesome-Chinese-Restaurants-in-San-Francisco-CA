@@ -13,7 +13,8 @@
 	<script type="text/javascript" src="js/knockout-3.4.0.js"></script>
   <script type="text/javascript" src="js/map.js"></script>
 	<div id="map"></div>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjE8bUgRCXjZjSuQnvburEMvasHCaQo6M&libraries=places&callback=initMap"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjE8bUgRCXjZjSuQnvburEMvasHCaQo6M&libraries=places&callback=initMap">
+    </script>
 <!-- Search Bar -->
 	<div class="container">
   <div class="col-md-12">
@@ -23,6 +24,7 @@
     <div class="list-view" data-bind="foreach: search">
       <p class="list-item" data-bind="text: $data.name, click: listViewClick"></p>
     </div>
+  </div>
   </div>
 </div>
 </body>
