@@ -1,5 +1,5 @@
 /////*MODEL*/////
-var initialLocations = [
+var Locations = [
     {name: "Capital Restaurant", position: {lat: 37.793945, lng: -122.407079}},
     {name: "Shangri-Li Chinese Vegetarian", position: {lat: 37.763695, lng: -122.479830}},
     {name: "Riverside Seafood Restaurant", position: {lat: 37.738948, lng: -122.479902}},
@@ -42,10 +42,10 @@ function ViewModel() {
   self.markers = [];
 
   //Copies the values of initialLocations and stores them in sortedLocations(); observableArray
-  self.sortedLocations = ko.observableArray(initialLocations);
+  self.Locations = ko.observableArray(Locations);
 
   //Adds new markers at each location in the initialLocations Array
-  self.sortedLocations().forEach(function(location) {
+  self.Locations().forEach(function(location) {
     var marker = new google.maps.Marker({
       position: location.position,
       map: map,
@@ -94,13 +94,8 @@ function ViewModel() {
 
   //Filter through observableArray and filter results using knockouts utils.arrayFilter();
   self.search = ko.computed(function() {
-    return ko.utils.arrayFilter(self.sortedLocations(), function(listResult) {
+    return ko.utils.arrayFilter(self.Locations(), function(listResult) {
       return listResult.name.toLowerCase().indexOf(self.query().toLowerCase()) >= 0;
     });
   });
 };
-
-$(document).ready(function() {
-  initMap();
-  ko.applyBindings(ViewModel());
-});
