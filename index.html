@@ -4,7 +4,6 @@
 	<meta charset= "utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-  </head>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<title>Five Awesome Chinese Restaurants in San Francisco, CA</title>
 </head>
@@ -29,10 +28,11 @@
 </div>
 <script>
   function initApp() {
+  "use strict";    
     initMap();
     var app = new ViewModel();
     ko.applyBindings(app);
-  };
+  }
 </script>
 </body>
 </html>
