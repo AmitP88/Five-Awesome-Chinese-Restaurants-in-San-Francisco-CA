@@ -10,34 +10,28 @@ var Locations = [
 //Variable for infowindow content
 var content = "(Insert Yelp! API info here)";
 
-//Declared map, marker, and infoWindow variables early to be used later downstream
+//Declared map and infoWindow variables early to be used later downstream
 
 var map;
-
-var marker;
 
 var infoWindow;
 
 //Function that renders the map on screen using the Id "map" as a reference from index.html
 function initMap() {
+  "use strict";
   map = new google.maps.Map(document.getElementById("map"), {
     center: {lat: 37.7749, lng: -122.4194},
     zoom: 12,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     mapTypeControl: false
   });
-};
+}
 
 /////*VIEWMODEL*/////
 function ViewModel() {
+  "use strict";
 
-  //Constructor function that holds the observable objects for Knockout.js binding
-  function restaurantLocation(name, position) {
-    this.name = ko.observable(name);
-    this.position = ko.observable(lat);
-    this.position = ko.observable(lng);
-  };
-
+  //Declared "this" as self variable so that the same instance of "this" can be used in multiple functions downstream
   var self = this;
   self.markers = [];
 
@@ -67,10 +61,10 @@ function ViewModel() {
     });
     //Add click event to each marker to open info window
     info.addListener('click', function() {
-      infoWindow.open(map, this)
-        info.setAnimation(google.maps.Animation.BOUNCE) //Markers will bounce when clicked
+      infoWindow.open(map, this);
+        info.setAnimation(google.maps.Animation.BOUNCE); //Markers will bounce when clicked
       setTimeout(function() {
-        info.setAnimation(null)
+        info.setAnimation(null);
       }, 2000); //Change value to null after 2 seconds and stop markers from bouncing
     });
 
@@ -80,9 +74,9 @@ function ViewModel() {
   self.listViewClick = function(restaurant) {
     if (restaurant.name) {
       map.setZoom(15); //Zoom map view
-      map.panTo(restaurant.position); // Pan to correct marker when list view item is clicked
-      restaurant.marker.setAnimation(google.maps.Animation.BOUNCE); // Bounce marker when list view item is clicked
-      infoWindow.open(map, restaurant.marker); // Open info window on correct marker when list item is clicked
+      map.panTo(restaurant.position); // Pans the map view to correct marker when list view item is clicked
+      restaurant.marker.setAnimation(google.maps.Animation.BOUNCE); // Bounces marker when list view item is clicked
+      infoWindow.open(map, restaurant.marker); // Opens an info window on correct marker when list item is clicked
     }
     setTimeout(function() {
       restaurant.marker.setAnimation(null); // End animation on marker after 2 seconds
@@ -98,4 +92,4 @@ function ViewModel() {
       return listResult.name.toLowerCase().indexOf(self.query().toLowerCase()) >= 0;
     });
   });
-};
+}
