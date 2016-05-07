@@ -35,10 +35,10 @@ function ViewModel() {
   var self = this;
   self.markers = [];
 
-  //Copies the values of initialLocations and stores them in sortedLocations(); observableArray
+  //Copies the values of Locations and stores them in self.Locations(); observableArray
   self.Locations = ko.observableArray(Locations);
 
-  //Adds new markers at each location in the initialLocations Array
+  //Adds new markers at each location in the self.Locations Array
   self.Locations().forEach(function(location) {
     var marker = new google.maps.Marker({
       position: location.position,
@@ -79,8 +79,8 @@ function ViewModel() {
       infoWindow.open(map, restaurant.marker); // Opens an info window on correct marker when list item is clicked
     }
     setTimeout(function() {
-      restaurant.marker.setAnimation(null); // End animation on marker after 2 seconds
-    }, 2000);
+      restaurant.marker.setAnimation(null); // End animation on marker after 1 seconds
+    }, 1000);
   };
 
   // Stores user input
@@ -90,6 +90,9 @@ function ViewModel() {
   self.search = ko.computed(function() {
     return ko.utils.arrayFilter(self.Locations(), function(listResult) {
       return listResult.name.toLowerCase().indexOf(self.query().toLowerCase()) >= 0;
-    });
+    if (!result==0) {marker.setMap(self.map);
+    } else {marker.setMap(null);
+    }
+  });
   });
 }
