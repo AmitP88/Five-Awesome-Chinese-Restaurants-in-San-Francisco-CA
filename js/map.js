@@ -17,15 +17,15 @@ var map;
 var infoWindow;
 
 //Function that renders the map on screen using the Id "map" as a reference from index.html
-function initMap() {
+  function initMap() {
   "use strict";
-  map = new google.maps.Map(document.getElementById("map"), {
-    center: {lat: 37.7749, lng: -122.4194},
-    zoom: 12,
-    mapTypeId: google.maps.MapTypeId.ROADMAP,
-    mapTypeControl: false
-  });
-}
+    map = new google.maps.Map(document.getElementById("map"), {
+      center: {lat: 37.7749, lng: -122.4194},
+      zoom: 12,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      mapTypeControl: false
+    });
+  }
 
 /////*VIEWMODEL*/////
 function ViewModel() {
@@ -35,7 +35,7 @@ function ViewModel() {
   var self = this;
   self.markers = [];
 
-  //Copies the values of Locations and stores them in self.Locations(); observableArray
+  //Copies the values of Locations and stores them in an observable array for knockout listview implementation
   self.Locations = ko.observableArray(Locations);
 
   //Adds new markers at each location in the self.Locations Array
@@ -64,23 +64,23 @@ function ViewModel() {
     //Add click event to each marker to open info window
     info.addListener('click', function() {
       infoWindow.open(map, this);
-        info.setAnimation(google.maps.Animation.BOUNCE); //Markers will bounce when clicked
+      info.setAnimation(google.maps.Animation.BOUNCE); //Markers will bounce when clicked
       setTimeout(function() {
         info.setAnimation(null);
-      }, 1500); //Change value to null after 1.5 seconds and stop markers from bouncing
+        }, 1500); //Change value to null after 1.5 seconds and stop markers from bouncing
     });
   });
 
   //Click on item in list view
-  self.listViewClick = function(restaurant) {
-    if (restaurant.name) {
+  self.listViewClick = function(location) {
+    if (location.name) {
       map.setZoom(15); //Zoom map view
-      map.panTo(restaurant.position); // Pans the map view to correct marker when list view item is clicked
-      restaurant.marker.setAnimation(google.maps.Animation.BOUNCE); // Bounces marker when list view item is clicked
-      infoWindow.open(map, restaurant.marker); // Opens an info window on correct marker when list item is clicked
+      map.panTo(location.position); // Pans the map view to selected marker when list view item is clicked
+      location.marker.setAnimation(google.maps.Animation.BOUNCE); // Bounces marker when list view item is clicked
+      infoWindow.open(map, location.marker); // Opens an info window on correct marker when list item is clicked
     }
     setTimeout(function() {
-      restaurant.marker.setAnimation(null); // End animation on marker after 1.5 seconds
+      location.marker.setAnimation(null); // End animation on marker after 1.5 seconds
     }, 1500);
   };
 
@@ -90,10 +90,14 @@ function ViewModel() {
   //Filter through observableArray and filter results using knockouts utils.arrayFilter();
   self.search = ko.computed(function() {
     return ko.utils.arrayFilter(self.Locations(), function(listResult) {
-      return listResult.name.toLowerCase().indexOf(self.query().toLowerCase()) >= 0;
-        if (result!==0) { 
-          return marker.setVisible(false);
+       return listResult.name.toLowerCase().indexOf(self.query().toLowerCase()) >= 0;
+        listResult.marker.name.toLowerCase().indexOf(self.query().toLowerCase()) >= 0;
+          if (result!==0) {
+            marker.setVisible(false);
+          } else {
+            marker.setVisible(true);
           }
+        return result >= 0;
     });
   });
 }
