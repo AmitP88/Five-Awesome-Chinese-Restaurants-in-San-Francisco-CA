@@ -91,13 +91,6 @@ function ViewModel() {
   self.search = ko.computed(function() {
     return ko.utils.arrayFilter(self.Locations(), function(listResult) {
        return listResult.name.toLowerCase().indexOf(self.query().toLowerCase()) >= 0;
-        listResult.marker.name.toLowerCase().indexOf(self.query().toLowerCase()) >= 0;
-          if (result!==0) {
-            marker.setVisible(false);
-          } else {
-            marker.setVisible(true);
-          }
-        return result >= 0;
     });
   });
 }
