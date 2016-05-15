@@ -90,7 +90,7 @@ function ViewModel() {
   //Filter through observableArray and filter results using knockouts utils.arrayFilter();
 self.search = ko.computed (function () {
     var query = self.query().toLowerCase();
-     return ko.utilis.arrayFilter(self.Locations(),function(listResult) {
+     return ko.utils.arrayFilter(self.Locations(),function(listResult) {
 
      var result = listResult.name.toLowerCase().indexOf(query);
 
