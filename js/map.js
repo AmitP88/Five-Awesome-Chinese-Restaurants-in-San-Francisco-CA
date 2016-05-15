@@ -88,9 +88,16 @@ function ViewModel() {
   self.query = ko.observable('');
 
   //Filter through observableArray and filter results using knockouts utils.arrayFilter();
-  self.search = ko.computed(function() {
-    return ko.utils.arrayFilter(self.Locations(), function(listResult) {
-       return listResult.name.toLowerCase().indexOf(self.query().toLowerCase()) >= 0;
-    });
-  });
+self.search = ko.computed (function () {
+    var query = self.query().toLowerCase();
+     return ko.utilis.arrayFilter(self.Locations(),function(listResult) {
+
+     var result = listResult.name.toLowerCase().indexOf(query);
+
+     if (result!== listResult.name.toLowerCase().indexOf(query))
+     { return listResult.marker.setVisible(false); } else {
+       return listResult.marker.setVisible(true);
+     }
+   });
+ });
 }
