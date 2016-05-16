@@ -87,20 +87,19 @@ function ViewModel() {
   // Stores user input
   self.query = ko.observable('');
 
-  //Filter through observableArray and filter results using knockouts utils.arrayFilter();
-   self.search = ko.computed(function() {
-      return ko.utils.arrayFilter(self.Locations(), function(listResult) {
+//Filter through observableArray and filter results using knockouts utils.arrayFilter();
+self.search = ko.computed(function () {
+  return ko.utils.arrayFilter(self.Locations(), function (listResult) {
+  var result = listResult.name.toLowerCase().indexOf(self.query().toLowerCase());
 
-      var query = self.query().toLowerCase();
+//If-else statement used to display markers only if they meet search criteria in search bar
+  if (result === -1) {
+    listResult.marker.setVisible(false); 
+    } else {
+    listResult.marker.setVisible(true); 
+    }
 
-          return listResult.name.toLowerCase().indexOf(query) >= 0;
-          return listResult.marker.name.toLowerCase().indexOf(query) >= 0;
-
-          // if (!result) {
-          //    return listResult.marker.setVisible(false);
-          // } else {
-          //    return listResult.marker.setVisible(true);
-          // }
-      });
+    return result >= 0;
     });
+  });
 }
