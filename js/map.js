@@ -88,16 +88,19 @@ function ViewModel() {
   self.query = ko.observable('');
 
   //Filter through observableArray and filter results using knockouts utils.arrayFilter();
-self.search = ko.computed (function () {
-    var query = self.query().toLowerCase();
-     return ko.utils.arrayFilter(self.Locations(),function(listResult) {
+   self.search = ko.computed(function() {
+      return ko.utils.arrayFilter(self.Locations(), function(listResult) {
 
-     var result = listResult.name.toLowerCase().indexOf(query);
+      var query = self.query().toLowerCase();
 
-     if (result!== listResult.name.toLowerCase().indexOf(query))
-     { return listResult.marker.setVisible(false); } else {
-       return listResult.marker.setVisible(true);
-     }
-   });
- });
+          return listResult.name.toLowerCase().indexOf(query) >= 0;
+          return listResult.marker.name.toLowerCase().indexOf(query) >= 0;
+
+          // if (!result) {
+          //    return listResult.marker.setVisible(false);
+          // } else {
+          //    return listResult.marker.setVisible(true);
+          // }
+      });
+    });
 }
