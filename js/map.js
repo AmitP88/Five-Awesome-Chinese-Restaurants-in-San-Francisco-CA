@@ -8,7 +8,10 @@ var Locations = [
 ];
 
 //Variable for infowindow content
-var content = "(Insert Yelp! API info here)";
+var content = '<div id="iw-content">' +
+              '<a href="' + myHref + '">' + myAnchorTagText + '</a>' +
+              '<p>' + myDescription + '</p>' +
+              '</div>';
 
 //Declared map and infoWindow variables early to be used later downstream
 
