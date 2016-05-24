@@ -1,4 +1,4 @@
-/////*MODEL*/////
+/////*Model*/////
 var Locations = [
     {name: "Capital Restaurant", position: {lat: 37.793945, lng: -122.407079}},
     {name: "Shangri-Li Chinese Vegetarian", position: {lat: 37.763695, lng: -122.479830}},
@@ -7,13 +7,12 @@ var Locations = [
     {name: "Five Happiness", position: {lat: 37.781281, lng: -122.463974}}
 ];
 
-//Variable for infowindow content
-var content = '<div id="iw-content">' +
-              '<a href="' + myHref + '">' + myAnchorTagText + '</a>' +
-              '<p>' + myDescription + '</p>' +
-              '</div>';
-
 //Declared map and infoWindow variables early to be used later downstream
+
+var content = '<div id="iw-content">' +
+                    '<a href="' + myHref + '">' + myAnchorTagText + '</a>' +
+                    '<p>' + myDescription + '</p>' +
+                    '</div>';
 
 var map;
 
@@ -30,7 +29,7 @@ var infoWindow;
     });
   }
 
-/////*VIEWMODEL*/////
+/////*VIEWLocations*/////
 function ViewModel() {
   "use strict";
 
@@ -106,3 +105,30 @@ self.search = ko.computed(function () {
     });
   });
 }
+
+    // get location data from foursquare
+    function getContent(data) {
+      var FoursquareUrl = "";
+      var location = [];
+      for (var place in Locations) {
+        FoursquareUrl = 'https://api.foursquare.com/v2/venues/VENUE_ID' +
+          '?client_id=LLZ2Y4XNAN2TO4UN4BOT4YCC3GVPMSG5BVI545HG1ZEMBDRM' +
+          '&client_secret=0UTHYFC5UAFI5FQEXVAB5WIQREZCLCANHT3LU2FA2O05GW3D'
+          '&ll=' + Locations[place]["position"][0] + ',' + Locations[place]["position"][1] + 
+          '&query=' + Locations[place]["name"] + 
+          '&intent=match';
+
+        $.getJSON(foursquareUrl, function(data) {         
+          if(data.response.venues){
+            var item = data.response.venues[0];
+            allLocations.push(item);
+            location = {lat: item.location.lat, lng: item.location.lng, name: item.name, loc: item.location.address + " " + item.location.city + ", " + item.location.state + " " + item.location.postalCode};
+            locationDataArray.push(location);
+            placeMarkers(allLocations, place, location, map, markers);
+          } else {
+            alert("Something went wrong, Could not retreive data from foursquare. Please try again!");
+            return;
+          }
+        });    
+      }
+    }
