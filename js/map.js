@@ -42,10 +42,10 @@ function ViewModel() {
     var marker = new google.maps.Marker({
       position: location.position,
       map: map,
-      title: item.title,
-      description: item.description,
-      URL: item.URL,
-      rating: item.rating,
+      title: Location.title,
+      description: Location.description,
+      URL: Location.URL,
+      rating: Location.rating,
       icon: 'http://icons.iconarchive.com/icons/pixture/box-container/32/Chinese-icon.png',
       animation: google.maps.Animation.DROP
     });
@@ -67,16 +67,17 @@ function ViewModel() {
                 dataType: 'json',
                 cache: false,
                 url: 'https://api.foursquare.com/v2/venues/explore',
-                data: 'limit=1&ll=' + item.lat + ',' + item.lng + '&query=' + item.title + '&client_id=' + CLIENT_ID_Foursquare + '&client_secret=' + CLIENT_SECRET_Foursquare + '&v=20140806&m=foursquare',
+                data: 'limit=1&ll=' + Location.position.lat + ',' + Location.position.lng + '&query=' + Location.title + '&client_id=' + CLIENT_ID_Foursquare + '&client_secret=' + CLIENT_SECRET_Foursquare + '&v=20140806&m=foursquare',
                 async: true,
+                position: location.position.lat + "," + location.position.lng,
                 success: function(data) {
                     /*callback function if succes - Will add the rating received from foursquare to the content of the info window*/
-                    item.rating = data.response.groups[0].items[0].venue.rating;
+                    Location.rating = data.response.groups[0].Locations[0].venue.rating;
                     console.log(data.response.photo);
-                    if (!item.rating) {
-                        item.rating = 'No rating in foursquare';
+                    if (!Location.rating) {
+                        Location.rating = 'No rating in foursquare';
                     }
-                    marker.content = '<br><div class="labels">' + '<div class="title">' + item.title + '</div><div class="rating">Foursquare rating: ' + item.rating + '</div><p>' + item.description + '</p>' + '<a href=' + item.URL + '>' + item.URL + '</a>' + '</div>';
+                    marker.content = '<br><div class="labels">' + '<div class="title">' + Location.title + '</div><div class="rating">Foursquare rating: ' + Location.rating + '</div><p>' + Location.description + '</p>' + '<a href=' + Location.URL + '>' + Location.URL + '</a>' + '</div>';
                 },
                 error: function(data) {
                     /*callback function if error - an alert will be activaded to notify the user of the error*/
@@ -85,7 +86,7 @@ function ViewModel() {
             });
   });
 
-  //Map info windows to each item in the markers array
+  //Map info windows to each Location in the markers array
   self.markers.map(function(info) {
      infoWindow = new google.maps.InfoWindow({
       content: contentString
@@ -100,13 +101,13 @@ function ViewModel() {
     });
   });
 
-  //Click on item in list view
+  //Click on Location in list view
   self.listViewClick = function(location) {
     if (location.name) {
       map.setZoom(15); //Zoom map view
-      map.panTo(location.position); // Pans the map view to selected marker when list view item is clicked
-      location.marker.setAnimation(google.maps.Animation.BOUNCE); // Bounces marker when list view item is clicked
-      infoWindow.open(map, location.marker); // Opens an info window on correct marker when list item is clicked
+      map.panTo(location.position); // Pans the map view to selected marker when list view Location is clicked
+      location.marker.setAnimation(google.maps.Animation.BOUNCE); // Bounces marker when list view Location is clicked
+      infoWindow.open(map, location.marker); // Opens an info window on correct marker when list Location is clicked
     }
     setTimeout(function() {
       location.marker.setAnimation(null); // End animation on marker after 1.5 seconds
@@ -132,3 +133,5 @@ self.search = ko.computed(function () {
     });
   });
 }
+
+console.log(location);
