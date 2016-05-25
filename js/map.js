@@ -9,10 +9,7 @@ var Locations = [
 
 //Declared map and infoWindow variables early to be used later downstream
 
-var content = '<div id="iw-content">' +
-                    '<a href="' + myHref + '">' + myAnchorTagText + '</a>' +
-                    '<p>' + myDescription + '</p>' +
-                    '</div>';
+var contentString;
 
 var map;
 
@@ -45,7 +42,10 @@ function ViewModel() {
     var marker = new google.maps.Marker({
       position: location.position,
       map: map,
-      title: location.name,
+      title: item.title,
+      description: item.description,
+      URL: item.URL,
+      rating: item.rating,
       icon: 'http://icons.iconarchive.com/icons/pixture/box-container/32/Chinese-icon.png',
       animation: google.maps.Animation.DROP
     });
@@ -56,12 +56,39 @@ function ViewModel() {
 
   //Pushes each marker into the markers array
     self.markers.push(marker);
+
+      /*client id and client secret for foursquare api*/
+        var CLIENT_ID_Foursquare = 'LLZ2Y4XNAN2TO4UN4BOT4YCC3GVPMSG5BVI545HG1ZEMBDRM';
+        var CLIENT_SECRET_Foursquare = '0UTHYFC5UAFI5FQEXVAB5WIQREZCLCANHT3LU2FA2O05GW3D';
+        
+  /*Foursquare api ajax request*/
+            $.ajax({
+                type: "GET",
+                dataType: 'json',
+                cache: false,
+                url: 'https://api.foursquare.com/v2/venues/explore',
+                data: 'limit=1&ll=' + item.lat + ',' + item.lng + '&query=' + item.title + '&client_id=' + CLIENT_ID_Foursquare + '&client_secret=' + CLIENT_SECRET_Foursquare + '&v=20140806&m=foursquare',
+                async: true,
+                success: function(data) {
+                    /*callback function if succes - Will add the rating received from foursquare to the content of the info window*/
+                    item.rating = data.response.groups[0].items[0].venue.rating;
+                    console.log(data.response.photo);
+                    if (!item.rating) {
+                        item.rating = 'No rating in foursquare';
+                    }
+                    marker.content = '<br><div class="labels">' + '<div class="title">' + item.title + '</div><div class="rating">Foursquare rating: ' + item.rating + '</div><p>' + item.description + '</p>' + '<a href=' + item.URL + '>' + item.URL + '</a>' + '</div>';
+                },
+                error: function(data) {
+                    /*callback function if error - an alert will be activaded to notify the user of the error*/
+                    alert("Could not load data from foursquare!");
+                }
+            });
   });
 
   //Map info windows to each item in the markers array
   self.markers.map(function(info) {
      infoWindow = new google.maps.InfoWindow({
-      content: content
+      content: contentString
     });
     //Add click event to each marker to open info window
     info.addListener('click', function() {
@@ -105,30 +132,3 @@ self.search = ko.computed(function () {
     });
   });
 }
-
-    // get location data from foursquare
-    function getContent(data) {
-      var FoursquareUrl = "";
-      var location = [];
-      for (var place in Locations) {
-        FoursquareUrl = 'https://api.foursquare.com/v2/venues/VENUE_ID' +
-          '?client_id=LLZ2Y4XNAN2TO4UN4BOT4YCC3GVPMSG5BVI545HG1ZEMBDRM' +
-          '&client_secret=0UTHYFC5UAFI5FQEXVAB5WIQREZCLCANHT3LU2FA2O05GW3D' +
-          '&ll=' + Locations[place]["position"][0] + ',' + Locations[place]["position"][1] + 
-          '&query=' + Locations[place]["name"] + 
-          '&intent=match';
-
-        $.getJSON(foursquareUrl, function(data) {         
-          if(data.response.venues){
-            var item = data.response.venues[0];
-            allLocations.push(item);
-            location = {lat: item.location.lat, lng: item.location.lng, name: item.name, loc: item.location.address + " " + item.location.city + ", " + item.location.state + " " + item.location.postalCode};
-            locationDataArray.push(location);
-            placeMarkers(allLocations, place, location, map, markers);
-          } else {
-            alert("Something went wrong, Could not retreive data from foursquare. Please try again!");
-            return;
-          }
-        });    
-      }
-    }
