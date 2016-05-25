@@ -113,7 +113,7 @@ self.search = ko.computed(function () {
       for (var place in Locations) {
         FoursquareUrl = 'https://api.foursquare.com/v2/venues/VENUE_ID' +
           '?client_id=LLZ2Y4XNAN2TO4UN4BOT4YCC3GVPMSG5BVI545HG1ZEMBDRM' +
-          '&client_secret=0UTHYFC5UAFI5FQEXVAB5WIQREZCLCANHT3LU2FA2O05GW3D'
+          '&client_secret=0UTHYFC5UAFI5FQEXVAB5WIQREZCLCANHT3LU2FA2O05GW3D' +
           '&ll=' + Locations[place]["position"][0] + ',' + Locations[place]["position"][1] + 
           '&query=' + Locations[place]["name"] + 
           '&intent=match';
