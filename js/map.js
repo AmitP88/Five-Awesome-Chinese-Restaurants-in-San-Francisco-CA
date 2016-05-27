@@ -66,13 +66,29 @@ function ViewModel() {
                 type: "GET",
                 dataType: 'json',
                 cache: false,
+                groups: [
+                  {venue: {
+                      id: "4a788bcdf964a520d9e51fe3",
+                      name: "Capital Restaurant",
+                      contact: { },
+                      location: {
+                        address: "839 Clay St San Francisco, CA 94108",
+                        lat: 37.793945,
+                        lng: -122.407079
+                                }
+                           }
+                  },
+
+
+
+                ],
                 url: 'https://api.foursquare.com/v2/venues/explore',
                 data: 'limit=1&ll=' + location.lat + ',' + location.lng + '&query=' + location.title + '&client_id=' + CLIENT_ID_Foursquare + '&client_secret=' + CLIENT_SECRET_Foursquare + '&v=20140806&m=foursquare',
                 async: true,
                 success: function(data) {
                     console.log(data.response);                    
                     /*callback function if succes - Will add the rating received from foursquare to the content of the info window*/
-                    location.rating = data.response.groups[0].locations[0].venue.rating;
+                    location.rating = data.response.groups[0].location[0].venue.rating;
                     console.log(data.response.photo);                 
                     if (!location.rating) {
                         location.rating = 'No rating in foursquare';
