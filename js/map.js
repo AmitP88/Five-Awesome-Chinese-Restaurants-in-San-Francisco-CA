@@ -71,13 +71,15 @@ function ViewModel() {
                 async: true,
                 position: location.position.lat + "," + location.position.lng,
                 success: function(data) {
+                    console.log(data.response);                    
                     /*callback function if succes - Will add the rating received from foursquare to the content of the info window*/
                     location.rating = data.response.groups[0].Locations[0].venue.rating;
-                    console.log(data.response.photo);
+                    console.log(data.response.photo);                 
                     if (!location.rating) {
                         location.rating = 'No rating in foursquare';
                     }
                     marker.content = '<br><div class="labels">' + '<div class="title">' + location.title + '</div><div class="rating">Foursquare rating: ' + location.rating + '</div><p>' + location.description + '</p>' + '<a href=' + location.URL + '>' + location.URL + '</a>' + '</div>';
+               
                 },
                 error: function(data) {
                     /*callback function if error - an alert will be activaded to notify the user of the error*/
@@ -86,7 +88,7 @@ function ViewModel() {
             });
   });
 
-  console.log(data.response);
+
 
   //Map info windows to each Location in the markers array
   self.markers.map(function(info) {
