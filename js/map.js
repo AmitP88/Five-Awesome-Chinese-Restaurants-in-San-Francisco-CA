@@ -67,13 +67,12 @@ function ViewModel() {
                 dataType: 'json',
                 cache: false,
                 url: 'https://api.foursquare.com/v2/venues/explore',
-                data: 'limit=1&ll=' + location.position.lat + ',' + location.position.lng + '&query=' + location.title + '&client_id=' + CLIENT_ID_Foursquare + '&client_secret=' + CLIENT_SECRET_Foursquare + '&v=20140806&m=foursquare',
+                data: 'limit=1&ll=' + location.lat + ',' + location.lng + '&query=' + location.title + '&client_id=' + CLIENT_ID_Foursquare + '&client_secret=' + CLIENT_SECRET_Foursquare + '&v=20140806&m=foursquare',
                 async: true,
-                position: location.position.lat + "," + location.position.lng,
                 success: function(data) {
                     console.log(data.response);                    
                     /*callback function if succes - Will add the rating received from foursquare to the content of the info window*/
-                    location.rating = data.response.groups[0].Locations[0].venue.rating;
+                    location.rating = data.response.groups[0].locations[0].venue.rating;
                     console.log(data.response.photo);                 
                     if (!location.rating) {
                         location.rating = 'No rating in foursquare';
