@@ -42,10 +42,10 @@ function ViewModel() {
     var marker = new google.maps.Marker({
       position: location.position,
       map: map,
-      title: Location.title,
-      description: Location.description,
-      URL: Location.URL,
-      rating: Location.rating,
+      title: location.title,
+      description: location.description,
+      URL: location.URL,
+      rating: location.rating,
       icon: 'http://icons.iconarchive.com/icons/pixture/box-container/32/Chinese-icon.png',
       animation: google.maps.Animation.DROP
     });
@@ -67,24 +67,26 @@ function ViewModel() {
                 dataType: 'json',
                 cache: false,
                 url: 'https://api.foursquare.com/v2/venues/explore',
-                data: 'limit=1&ll=' + Location.position.lat + ',' + Location.position.lng + '&query=' + Location.title + '&client_id=' + CLIENT_ID_Foursquare + '&client_secret=' + CLIENT_SECRET_Foursquare + '&v=20140806&m=foursquare',
+                data: 'limit=1&ll=' + location.position.lat + ',' + location.position.lng + '&query=' + location.title + '&client_id=' + CLIENT_ID_Foursquare + '&client_secret=' + CLIENT_SECRET_Foursquare + '&v=20140806&m=foursquare',
                 async: true,
                 position: location.position.lat + "," + location.position.lng,
                 success: function(data) {
                     /*callback function if succes - Will add the rating received from foursquare to the content of the info window*/
-                    Location.rating = data.response.groups[0].Locations[0].venue.rating;
+                    location.rating = data.response.groups[0].Locations[0].venue.rating;
                     console.log(data.response.photo);
-                    if (!Location.rating) {
-                        Location.rating = 'No rating in foursquare';
+                    if (!location.rating) {
+                        location.rating = 'No rating in foursquare';
                     }
-                    marker.content = '<br><div class="labels">' + '<div class="title">' + Location.title + '</div><div class="rating">Foursquare rating: ' + Location.rating + '</div><p>' + Location.description + '</p>' + '<a href=' + Location.URL + '>' + Location.URL + '</a>' + '</div>';
+                    marker.content = '<br><div class="labels">' + '<div class="title">' + location.title + '</div><div class="rating">Foursquare rating: ' + location.rating + '</div><p>' + location.description + '</p>' + '<a href=' + location.URL + '>' + location.URL + '</a>' + '</div>';
                 },
                 error: function(data) {
                     /*callback function if error - an alert will be activaded to notify the user of the error*/
-                    alert("Could not load data from foursquare!");
+                    console.log("Could not load data from foursquare!");
                 }
             });
   });
+
+  console.log(data.response);
 
   //Map info windows to each Location in the markers array
   self.markers.map(function(info) {
@@ -133,5 +135,3 @@ self.search = ko.computed(function () {
     });
   });
 }
-
-console.log(location);
