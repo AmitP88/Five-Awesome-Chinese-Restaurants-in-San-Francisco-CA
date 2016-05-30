@@ -60,20 +60,18 @@ function ViewModel() {
       /*client id and client secret for foursquare api*/
         var CLIENT_ID_Foursquare = '?client_id=LLZ2Y4XNAN2TO4UN4BOT4YCC3GVPMSG5BVI545HG1ZEMBDRM';
         var CLIENT_SECRET_Foursquare = '&client_secret=0UTHYFC5UAFI5FQEXVAB5WIQREZCLCANHT3LU2FA2O05GW3D';
-        
+
   /*Foursquare api ajax request*/
             $.ajax({
                 type: "GET",
                 dataType: 'json',
                 cache: false,
-                url: 'https://api.foursquare.com/v2/venues/search' + CLIENT_ID_Foursquare + CLIENT_SECRET_Foursquare + '&v=20130815' + '&ll=' + location.position.lat + ',' + location.position.lng + '&query=' + location.name,
+                url: 'https://api.foursquare.com/v2/venues/' + location.id + CLIENT_ID_Foursquare + CLIENT_SECRET_Foursquare + '&v=20130815',
                 async: true,
                 success: function(data) {
                     console.log(data.response);                    
                     /*callback function if succes - Will add the rating received from foursquare to the content of the info window*/
 
-
-               
                 },
                 error: function(data) {
                     /*callback function if error - an alert will be activaded to notify the user of the error*/
