@@ -1,10 +1,10 @@
 /////*Model*/////
 var Locations = [
-    {name: "Capital Restaurant", position: {lat: 37.793945, lng: -122.407079}},
-    {name: "Shangri-Li Chinese Vegetarian", position: {lat: 37.763695, lng: -122.479830}},
-    {name: "Riverside Seafood Restaurant", position: {lat: 37.738948, lng: -122.479902}},
-    {name: "City View Restaurant", position: {lat: 37.794188, lng: -122.404117}},
-    {name: "Five Happiness", position: {lat: 37.781281, lng: -122.463974}}
+    {name: "Capital Restaurant", position: {lat: 37.793945, lng: -122.407079}, id: "4a788bcdf964a520d9e51fe3"},
+    {name: "Shangri-Li Chinese Vegetarian", position: {lat: 37.763695, lng: -122.479830}, id: "4b7629aff964a520f0402ee3"},
+    {name: "Riverside Seafood Restaurant", position: {lat: 37.738948, lng: -122.479902}, id: "4a918d27f964a520a81a20e3"},
+    {name: "City View Restaurant", position: {lat: 37.794188, lng: -122.404117}, id: "4abfdac7f964a5209f9220e3"},
+    {name: "Five Happiness", position: {lat: 37.781281, lng: -122.463974}, id: "49eaa620f964a52087661fe3"}
 ];
 
 //Declared map and infoWindow variables early to be used later downstream
@@ -58,42 +58,21 @@ function ViewModel() {
     self.markers.push(marker);
 
       /*client id and client secret for foursquare api*/
-        var CLIENT_ID_Foursquare = 'LLZ2Y4XNAN2TO4UN4BOT4YCC3GVPMSG5BVI545HG1ZEMBDRM';
-        var CLIENT_SECRET_Foursquare = '0UTHYFC5UAFI5FQEXVAB5WIQREZCLCANHT3LU2FA2O05GW3D';
+        var CLIENT_ID_Foursquare = '?client_id=LLZ2Y4XNAN2TO4UN4BOT4YCC3GVPMSG5BVI545HG1ZEMBDRM';
+        var CLIENT_SECRET_Foursquare = '&client_secret=0UTHYFC5UAFI5FQEXVAB5WIQREZCLCANHT3LU2FA2O05GW3D';
         
   /*Foursquare api ajax request*/
             $.ajax({
                 type: "GET",
                 dataType: 'json',
                 cache: false,
-                groups: [
-                  {venue: {
-                      id: "4a788bcdf964a520d9e51fe3",
-                      name: "Capital Restaurant",
-                      contact: { },
-                      location: {
-                        address: "839 Clay St San Francisco, CA 94108",
-                        lat: 37.793945,
-                        lng: -122.407079
-                                }
-                           }
-                  },
-
-
-
-                ],
-                url: 'https://api.foursquare.com/v2/venues/explore',
-                data: 'limit=1&ll=' + location.lat + ',' + location.lng + '&query=' + location.title + '&client_id=' + CLIENT_ID_Foursquare + '&client_secret=' + CLIENT_SECRET_Foursquare + '&v=20140806&m=foursquare',
+                url: 'https://api.foursquare.com/v2/venues/search' + CLIENT_ID_Foursquare + CLIENT_SECRET_Foursquare + '&v=20130815' + '&ll=' + location.position.lat + ',' + location.position.lng + '&query=' + location.name,
                 async: true,
                 success: function(data) {
                     console.log(data.response);                    
                     /*callback function if succes - Will add the rating received from foursquare to the content of the info window*/
-                    location.rating = data.response.groups[0].location[0].venue.rating;
-                    console.log(data.response.photo);                 
-                    if (!location.rating) {
-                        location.rating = 'No rating in foursquare';
-                    }
-                    marker.content = '<br><div class="labels">' + '<div class="title">' + location.title + '</div><div class="rating">Foursquare rating: ' + location.rating + '</div><p>' + location.description + '</p>' + '<a href=' + location.URL + '>' + location.URL + '</a>' + '</div>';
+
+
                
                 },
                 error: function(data) {
