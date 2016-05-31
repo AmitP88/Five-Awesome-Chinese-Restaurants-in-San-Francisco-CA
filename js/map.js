@@ -9,7 +9,15 @@ var Locations = [
 
 //Declared map and infoWindow variables early to be used later downstream
 
-var contentString;
+var contentString = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<h1 id="firstHeading" class="firstHeading">' + location.name + '</h1>'+
+      '<div id="bodyContent">'+ 
+      '<p>' + location.formattedAddress + '</p>'+
+      '<p><a href="https://foursquare.com/v/capital-restaurant/4a788bcdf964a520d9e51fe3">'+ '</a>'+ '</p>'+
+      '</div>'+
+      '</div>';
 
 var map;
 
@@ -71,7 +79,10 @@ function ViewModel() {
                 success: function(data) {
                     console.log(data.response);                    
                     /*callback function if succes - Will add the rating received from foursquare to the content of the info window*/
-
+                    location.rating = data.response.venue.name;                 
+                    if (!location.rating) {
+                        location.rating = 'No rating in foursquare';
+                    }
                 },
                 error: function(data) {
                     /*callback function if error - an alert will be activaded to notify the user of the error*/
