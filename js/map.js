@@ -77,11 +77,16 @@ function ViewModel() {
                 url: 'https://api.foursquare.com/v2/venues/' + location.id + CLIENT_ID_Foursquare + CLIENT_SECRET_Foursquare + '&v=20130815',
                 async: true,
                 success: function(data) {
-                    console.log(data.response);                    
-                    /*callback function if succes - Will add the rating received from foursquare to the content of the info window*/
-                    location.rating = data.response.venue.name;                 
-                    if (!location.rating) {
-                        location.rating = 'No rating in foursquare';
+                    console.log(data.response);
+                    console.log(data.response.venue.name);
+                    console.log(data.response.venue.location.formattedAddress);
+                    console.log(data.response.venue.contact.phone);
+                    console.log(data.response.venue.menu.url);
+
+
+                    /*callback function if succes - Will add the rating received from foursquare to the content of the info window*/                 
+                    if (!data.response) {
+                        data.response = 'No rating in foursquare';
                     }
                 },
                 error: function(data) {
