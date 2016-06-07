@@ -8,11 +8,9 @@ var Locations = [
 ];
 
 //Declared map and infoWindow variables early to be used later downstream
-
-
   function contentString(location) {
     "use strict";
-    return ('<div id="content">'+ '<div id="siteNotice">'+ '</div>'+ '<h1 id="firstHeading" class="firstHeading">' + location.title + '</h1>'+ '<div id="bodyContent">'+ '<p>' + location.formattedAddress[0] + '<br>' + location.formattedAddress[1] + '<br>' + location.formattedAddress[2] + '</p>'+ '<p><a href="https://foursquare.com/v/capital-restaurant/4a788bcdf964a520d9e51fe3">'+ '</a>'+ '</p>'+ '</div>'+ '</div>');
+    return ('<div id="content">'+ '<div id="siteNotice">'+ '</div>'+ '<h1 id="firstHeading" class="firstHeading">' + location.title + '</h1>'+ '<div id="bodyContent">'+ '<p>' + location.formattedAddress[0] + '<br>' + location.formattedAddress[1] + '<br>' + location.formattedAddress[2] + '<br>' + '</div>'+ '</div>');
   };
 
 var map;
@@ -49,9 +47,7 @@ function ViewModel() {
       position: location.position,
       map: map,
       title: location.title,
-      description: location.description,
-      URL: location.URL,
-      rating: location.rating,
+      URL: location.shortUrl,
       icon: 'http://icons.iconarchive.com/icons/pixture/box-container/32/Chinese-icon.png',
       animation: google.maps.Animation.DROP
     });
@@ -78,12 +74,10 @@ function ViewModel() {
                     console.log(data.response);
                     console.log(data.response.venue.name);
                     console.log(data.response.venue.location.formattedAddress);
-                    console.log(data.response.venue.contact.phone);
-                    console.log(data.response.venue.menu.url);
-  //Map info windows to each Location in the markers array
-    infoWindow = new google.maps.InfoWindow({
-      content: contentString({title: data.response.venue.name, formattedAddress: data.response.venue.location.formattedAddress, formattedPhone: data.response.venue.contact.phone, menuURL: data.response.venue.menu.url})
-    });
+          //Map info windows to each Location in the markers array
+                infoWindow = new google.maps.InfoWindow({
+                    content: contentString({title: data.response.venue.name, formattedAddress: data.response.venue.location.formattedAddress})
+                        });
                     /*callback function if succes - Will add the rating received from foursquare to the content of the info window*/                 
                     if (!data.response) {
                         data.response = 'No rating in foursquare';
@@ -95,8 +89,6 @@ function ViewModel() {
                 }
             });
   });
-
-
 
   self.markers.forEach(function(info) {
     //Add click event to each marker to open info window
