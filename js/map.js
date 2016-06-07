@@ -11,7 +11,8 @@ var Locations = [
 
 
   function contentString(location) {
-    return '<div id="content">'+ '<div id="siteNotice">'+ '</div>'+ '<h1 id="firstHeading" class="firstHeading">' + location.title + '</h1>'+ '<div id="bodyContent">'+ '<p>' + location.formattedAddress + '</p>'+ '<p><a href="https://foursquare.com/v/capital-restaurant/4a788bcdf964a520d9e51fe3">'+ '</a>'+ '</p>'+ '</div>'+ '</div>';
+    "use strict";
+    return ('<div id="content">'+ '<div id="siteNotice">'+ '</div>'+ '<h1 id="firstHeading" class="firstHeading">' + location.title + '</h1>'+ '<div id="bodyContent">'+ '<p>' + location.formattedAddress[0] + '<br>' + location.formattedAddress[1] + '<br>' + location.formattedAddress[2] + '</p>'+ '<p><a href="https://foursquare.com/v/capital-restaurant/4a788bcdf964a520d9e51fe3">'+ '</a>'+ '</p>'+ '</div>'+ '</div>');
   };
 
 var map;
@@ -79,7 +80,10 @@ function ViewModel() {
                     console.log(data.response.venue.location.formattedAddress);
                     console.log(data.response.venue.contact.phone);
                     console.log(data.response.venue.menu.url);
-
+  //Map info windows to each Location in the markers array
+    infoWindow = new google.maps.InfoWindow({
+      content: contentString({title: data.response.venue.name, formattedAddress: data.response.venue.location.formattedAddress, formattedPhone: data.response.venue.contact.phone, menuURL: data.response.venue.menu.url})
+    });
                     /*callback function if succes - Will add the rating received from foursquare to the content of the info window*/                 
                     if (!data.response) {
                         data.response = 'No rating in foursquare';
@@ -92,10 +96,7 @@ function ViewModel() {
             });
   });
 
-  //Map info windows to each Location in the markers array
-    infoWindow = new google.maps.InfoWindow({
-      content: contentString
-    });
+
 
   self.markers.forEach(function(info) {
     //Add click event to each marker to open info window
