@@ -9,6 +9,20 @@ var Locations = [
 
 //Declared map and infoWindow variables early to be used later downstream
 
+
+  function contentString(location) {
+    return 
+        '<div id="content">'+
+        '<div id="siteNotice">'+
+        '</div>'+
+        '<h1 id="firstHeading" class="firstHeading">' + location.title + '</h1>'+
+        '<div id="bodyContent">'+ 
+        '<p>' + location.formattedAddress + '</p>'+
+        '<p><a href="https://foursquare.com/v/capital-restaurant/4a788bcdf964a520d9e51fe3">'+ '</a>'+ '</p>'+
+        '</div>'+
+        '</div>';
+  };
+
 var map;
 
 var infoWindow;
@@ -23,6 +37,8 @@ var infoWindow;
       mapTypeControl: false
     });
   }
+
+
 
 /////*VIEWLocations*/////
 function ViewModel() {
@@ -86,35 +102,21 @@ function ViewModel() {
   });
 
   //Map info windows to each Location in the markers array
-     infoWindow = new google.maps.InfoWindow({
+    infoWindow = new google.maps.InfoWindow({
       content: contentString
-    });  
+    });
 
   self.markers.forEach(function(info) {
-
     //Add click event to each marker to open info window
     info.addListener('click', function() {
       infoWindow.open(map, this);
-      var contentString = function(location) {
-        return 
-        '<div id="content">'+
-        '<div id="siteNotice">'+
-        '</div>'+
-        '<h1 id="firstHeading" class="firstHeading">' + location.title + '</h1>'+
-        '<div id="bodyContent">'+ 
-        '<p>' + location.formattedAddress + '</p>'+
-        '<p><a href="https://foursquare.com/v/capital-restaurant/4a788bcdf964a520d9e51fe3">'+ '</a>'+ '</p>'+
-        '</div>'+
-        '</div>';
-  };
+      infoWindow.setContent(contentString(location));
       info.setAnimation(google.maps.Animation.BOUNCE); //Markers will bounce when clicked
       setTimeout(function() {
         info.setAnimation(null);
         }, 1500); //Change value to null after 1.5 seconds and stop markers from bouncing
     });
   });
-
-
 
   //Click on Location in list view
   self.listViewClick = function(location) {
