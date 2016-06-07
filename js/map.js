@@ -11,16 +11,7 @@ var Locations = [
 
 
   function contentString(location) {
-    return 
-        '<div id="content">'+
-        '<div id="siteNotice">'+
-        '</div>'+
-        '<h1 id="firstHeading" class="firstHeading">' + location.title + '</h1>'+
-        '<div id="bodyContent">'+ 
-        '<p>' + location.formattedAddress + '</p>'+
-        '<p><a href="https://foursquare.com/v/capital-restaurant/4a788bcdf964a520d9e51fe3">'+ '</a>'+ '</p>'+
-        '</div>'+
-        '</div>';
+    return '<div id="content">'+ '<div id="siteNotice">'+ '</div>'+ '<h1 id="firstHeading" class="firstHeading">' + location.title + '</h1>'+ '<div id="bodyContent">'+ '<p>' + location.formattedAddress + '</p>'+ '<p><a href="https://foursquare.com/v/capital-restaurant/4a788bcdf964a520d9e51fe3">'+ '</a>'+ '</p>'+ '</div>'+ '</div>';
   };
 
 var map;
@@ -145,7 +136,6 @@ self.search = ko.computed(function () {
     } else {
     listResult.marker.setVisible(true); 
     }
-
     return result >= 0;
     });
   });
