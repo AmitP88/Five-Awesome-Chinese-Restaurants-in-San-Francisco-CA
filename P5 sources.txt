@@ -14,7 +14,7 @@ http://knockoutjs.com/documentation/textinput-binding.html (used to help underst
 
 https://discussions.udacity.com/t/neighborhood-map-project-5-get-data-foursquare-api/30408/68 (used to help with getting foursquare data into the infowindows)
 
-*Also a BIG thanks to Rusty Rountree, Heidi Kasemir, and Karol for helping me get the infowindow content and search filtering to work! =) *
+*Also a BIG thanks to Rusty Rountree, Heidi Kasemir, Karol, and Andrew for helping me get the infowindow content and search filtering to work! =) *
 
 
 (Used to cleanup code syntax for html, css, and javascript)
