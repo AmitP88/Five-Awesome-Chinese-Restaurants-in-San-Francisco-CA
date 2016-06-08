@@ -11,11 +11,11 @@ var Locations = [
   function contentString(location) {
     "use strict";
     return ('<div id="content">'+ '<div id="siteNotice">'+ '</div>'+ '<h1 id="firstHeading" class="firstHeading">' + location.title + '</h1>'+ '<div id="bodyContent">'+ '<p>' + location.formattedAddress[0] + '<br>' + location.formattedAddress[1] + '<br>' + location.formattedAddress[2] + '<br>' + '</div>'+ '</div>');
-  };
+  }
 
 var map;
 
-var infoWindow;
+var currentInfoWindow;
 
 //Function that renders the map on screen using the Id "map" as a reference from index.html
   function initMap() {
@@ -28,9 +28,7 @@ var infoWindow;
     });
   }
 
-
-
-/////*VIEWLocations*/////
+/////*VIEWMODEL*/////
 function ViewModel() {
   "use strict";
 
@@ -75,9 +73,25 @@ function ViewModel() {
                     console.log(data.response.venue.name);
                     console.log(data.response.venue.location.formattedAddress);
           //Map info windows to each Location in the markers array
-                infoWindow = new google.maps.InfoWindow({
+                var infoWindow = new google.maps.InfoWindow({
                     content: contentString({title: data.response.venue.name, formattedAddress: data.response.venue.location.formattedAddress})
                         });
+
+                location.infoWindow = infoWindow;
+
+                location.marker.addListener('click', function () {
+                    if (currentInfoWindow !== undefined) {
+                        currentInfoWindow.close();
+                    }
+                    currentInfoWindow = location.infoWindow;
+                    location.infoWindow.open(map, this);
+                    // location.infoWindow.setContent(contentString(location));
+                    location.marker.setAnimation(google.maps.Animation.BOUNCE); //Markers will bounce when clicked
+                    setTimeout(function () {
+                        location.marker.setAnimation(null);
+                    }, 1500); //Change value to null after 1.5 seconds and stop markers from bouncing
+                });
+
                     /*callback function if succes - Will add the rating received from foursquare to the content of the info window*/                 
                     if (!data.response) {
                         data.response = 'No rating in foursquare';
@@ -90,25 +104,17 @@ function ViewModel() {
             });
   });
 
-  self.markers.forEach(function(info) {
-    //Add click event to each marker to open info window
-    info.addListener('click', function() {
-      infoWindow.open(map, this);
-      infoWindow.setContent(contentString(location));
-      info.setAnimation(google.maps.Animation.BOUNCE); //Markers will bounce when clicked
-      setTimeout(function() {
-        info.setAnimation(null);
-        }, 1500); //Change value to null after 1.5 seconds and stop markers from bouncing
-    });
-  });
-
   //Click on Location in list view
   self.listViewClick = function(location) {
     if (location.name) {
       map.setZoom(15); //Zoom map view
       map.panTo(location.position); // Pans the map view to selected marker when list view Location is clicked
       location.marker.setAnimation(google.maps.Animation.BOUNCE); // Bounces marker when list view Location is clicked
-      infoWindow.open(map, location.marker); // Opens an info window on correct marker when list Location is clicked
+       if (currentInfoWindow !== undefined) {
+                currentInfoWindow.close();
+            }
+            currentInfoWindow = location.infoWindow;
+            currentInfoWindow.open(map, location.marker); // Opens an info window on correct marker when list Location is clicked
     }
     setTimeout(function() {
       location.marker.setAnimation(null); // End animation on marker after 1.5 seconds
