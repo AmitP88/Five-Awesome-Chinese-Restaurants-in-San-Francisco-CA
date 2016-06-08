@@ -1,0 +1,24 @@
+http://stackoverflow.com/questions/29557938/removing-map-pin-with-search (used to see how to filter map markers when using the search bar)
+
+http://stackoverflow.com/questions/36272535/connecting-list-view-in-knockout-js-with-map-markers (used to see how knockout.js listview is implemented into google maps)
+
+Knockout tutorial series: http://learn.knockoutjs.com/ (used to learn about knockout.js bindings and observables)
+
+http://stackoverflow.com/questions/32899466/using-knockout-js-and-google-maps-api (used to see how knockout.js and google maps api work together)
+
+https://gist.github.com/hkasemir/e3dce6eb073c0713a590a1ac1cc80bc5 (used as a studyguide to see how to structure model array, viewmodel, filters, etc)
+
+https://discussions.udacity.com/t/google-map-marker-filter-issues/15244/24 (used to help with filtering the map markers)
+
+http://knockoutjs.com/documentation/textinput-binding.html (used to help understand filter code)
+
+https://discussions.udacity.com/t/neighborhood-map-project-5-get-data-foursquare-api/30408/68 (used to help with getting foursquare data into the infowindows)
+
+
+(Used to cleanup code syntax for html, css, and javascript)
+
+http://htmlhint.com/
+
+http://jshint.com/
+
+http://csslint.net/
