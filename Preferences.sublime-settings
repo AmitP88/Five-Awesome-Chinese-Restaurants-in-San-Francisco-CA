@@ -1,0 +1,6 @@
+// Settings in here override those in "Default/Preferences.sublime-settings",
+// and are overridden in turn by file type specific settings.
+{
+	// Set to true to removing trailing white space on save
+	"trim_trailing_white_space_on_save": true
+}
