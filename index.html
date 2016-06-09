@@ -17,7 +17,7 @@
 <!-- Search Bar -->
 	<div class="container">
   		<div class="col-md-12">
-  		<input type="search" id="autocomplete" placeholder="Search Location" size="35" data-bind="textInput: query, valueUpdate: 'keyup'" /> 
+  		<input type="search" id="autocomplete" placeholder="Search Location" size="35" data-bind="textInput: query, valueUpdate: 'keyup'" />
   	<div class="col-md-4">
 <!--list view-->
     	<div class="list-view" data-bind="foreach: search">
@@ -28,7 +28,7 @@
 </div>
 	<script>
   		function initApp() {
-  		"use strict";    
+  		"use strict";
     		initMap();
     		var app = new ViewModel();
     		ko.applyBindings(app);
