@@ -99,7 +99,7 @@ function ViewModel() {
 								},
 								error: function(data) {
 										/*callback function if error - an alert will be activaded to notify the user of the error*/
-										console.log("Could not load data from foursquare!");
+										alert("Could not load data from foursquare.");
 								}
 						});
 	});
