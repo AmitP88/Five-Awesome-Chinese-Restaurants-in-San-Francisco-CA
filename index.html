@@ -4,35 +4,39 @@
 	<meta charset= "utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" href="css/style.css">
 	<title>Five Awesome Chinese Restaurants in San Francisco, CA</title>
 </head>
 <body>
-	<script type="text/javascript" src="js/jquery-1.12.3.min.js"></script>
-	<script type="text/javascript" src="js/knockout-3.4.0.js"></script>
-  	<script type="text/javascript" src="js/map.js"></script>
-	<div id="map"></div>
-    	<script async defer type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjE8bUgRCXjZjSuQnvburEMvasHCaQo6M&libraries=places&callback=initApp">
-    	</script>
+	<div id="map" class="my-map"></div>
 <!-- Search Bar -->
 	<div class="container">
-  		<div class="col-md-12">
-  		<input type="search" id="autocomplete" placeholder="Search Location" size="35" data-bind="textInput: query, valueUpdate: 'keyup'" />
-  	<div class="col-md-4">
+			<div class="col-md-12">
+			<input type="search" id="autocomplete" placeholder="Search Location" size="35" data-bind="textInput: query, valueUpdate: 'keyup'" />
+		<div class="col-md-4">
 <!--list view-->
-    	<div class="list-view" data-bind="foreach: search">
-      		<p class="list-item" data-bind="text: $data.name, click: $parent.listViewClick"></p>
-    	</div>
-  </div>
-  </div>
+			<div class="list-view" data-bind="foreach: search">
+					<p class="list-item" data-bind="text: $data.name, click: $parent.listViewClick"></p>
+			</div>
+	</div>
+	</div>
 </div>
 	<script>
-  		function initApp() {
-  		"use strict";
-    		initMap();
-    		var app = new ViewModel();
-    		ko.applyBindings(app);
-  		}
+			function initApp() {
+			"use strict";
+				initMap();
+				var app = new ViewModel();
+				ko.applyBindings(app);
+			}
+	</script>
+	<script src="http://code.jquery.com/jquery.min.js"></script>
+	<script type="text/javascript" src="js/knockout-3.4.0.js"></script>
+	<script type="text/javascript" src="js/map.js"></script>
+	<script async defer type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjE8bUgRCXjZjSuQnvburEMvasHCaQo6M&libraries=places&callback=initApp" onerror="googleError()"></script>
+	<script>
+				function googleError() {
+				alert('Google Maps could not be loaded.')
+			}
 	</script>
 </body>
 </html>
