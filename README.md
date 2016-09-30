@@ -7,3 +7,5 @@ After extracting the zipfile, open the index.html file in your web browser. You 
 marker icons on the map for the five locations loaded on default to view more information about them.
 You can also use the search bar to type in any of the names of the locations shown on the map and
 to filter out the other locations that do not meet the search criteria.
+
+The live site can also be visited here: http://amitp88.github.io/map-project/
